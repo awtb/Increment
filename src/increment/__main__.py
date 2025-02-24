@@ -1,4 +1,4 @@
-from typer import Typer
+from typer import Typer, Option
 
 import uvicorn
 
@@ -8,10 +8,13 @@ t = Typer()
 
 
 @t.command("start")
-def start():
+def start(reload: bool = Option(default=False, help="Reload on code changes?")):
     settings = load_settings()
     uvicorn.run(
-        "increment.app.main:app", host=settings.serving.host, port=settings.serving.port
+        "increment.app.main:app",
+        host=settings.serving_host,
+        port=settings.serving_port,
+        reload=reload,
     )
 
 
