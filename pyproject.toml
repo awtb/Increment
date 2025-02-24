@@ -1,0 +1,25 @@
+[project]
+name = "increment"
+version = "0.1.0"
+description = ""
+authors = [
+    { name = "Ilyas Kalandar", email = "ilyas_kalandar@outlook.com" }
+]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "blacksheep (>=2.0.8,<3.0.0)",
+    "blacksheep-cli (>=0.0.4,<0.0.5)",
+    "pydantic (>=2.10.6,<3.0.0)",
+    "uvicorn (>=0.34.0,<0.35.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+packages = [{ include = "loom", from = "src" }]
+
+[tool.poetry.group.dev.dependencies]
+black = "^25.1.0"
+
