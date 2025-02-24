@@ -24,11 +24,6 @@ class Site(BaseModel):
     copyright: str = "Example"
 
 
-class Serving(BaseModel):
-    port: int = Field(default=8000, alias="SERVING_PORT")
-    host: str = Field(default="0.0.0.0", alias="SERVING_HOST")
-
-
 class Settings(BaseSettings):
     # to override info:
     # export app_info='{"title": "x", "version": "0.0.2"}'
@@ -38,9 +33,17 @@ class Settings(BaseSettings):
     # export app_app='{"show_error_details": True}'
     app: App = App()
 
-    serving: Serving = Serving()
+    serving_host: str = Field(
+        alias="SERVING_HOST",
+        default="0.0.0.0",
+    )
 
-    model_config = SettingsConfigDict(env_prefix="APP_")
+    serving_port: int = Field(
+        alias="SERVING_PORT",
+        default=8080,
+    )
+
+    model_config = SettingsConfigDict(env_file=".env")
 
 
 def load_settings() -> Settings:
