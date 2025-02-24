@@ -6,12 +6,13 @@ values.
 
 https://docs.pydantic.dev/latest/usage/settings/
 """
-from pydantic import BaseModel
+
+from pydantic import BaseModel, Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class APIInfo(BaseModel):
-    title: str = "increment API"
+    title: str = "Increment API"
     version: str = "0.0.1"
 
 
@@ -23,6 +24,11 @@ class Site(BaseModel):
     copyright: str = "Example"
 
 
+class Serving(BaseModel):
+    port: int = Field(default=8000, alias="SERVING_PORT")
+    host: str = Field(default="0.0.0.0", alias="SERVING_HOST")
+
+
 class Settings(BaseSettings):
     # to override info:
     # export app_info='{"title": "x", "version": "0.0.2"}'
@@ -32,7 +38,9 @@ class Settings(BaseSettings):
     # export app_app='{"show_error_details": True}'
     app: App = App()
 
-    model_config = SettingsConfigDict(env_prefix='APP_')
+    serving: Serving = Serving()
+
+    model_config = SettingsConfigDict(env_prefix="APP_")
 
 
 def load_settings() -> Settings:
