@@ -7,15 +7,17 @@ from typing import List, Optional
 from blacksheep.server.controllers import Controller, get, post
 
 
-class IncrementController(Controller):
+class Increment(Controller):
     @classmethod
     def route(cls) -> Optional[str]:
         return "/api/v1/increment"
 
     @classmethod
     def class_name(cls) -> str:
-        return "Increment"
+        return "Increment V1"
 
     @post()
-    async def increment(self):
-        return "HELLO"
+    async def increment(self, example: str):
+        """
+        Adds an example.
+        """
