@@ -10,7 +10,11 @@ dependencies = [
     "greenlet>=3.1.1",
     "isort>=6.0.1",
     "pre-commit>=4.1.0",
+    "pydantic>=2.10.6",
+    "pydantic-settings>=2.8.1",
     "sqlalchemy>=2.0.38",
+    "typer>=0.15.2",
+    "uvicorn>=0.34.0",
 ]
 
 [tool.isort]
