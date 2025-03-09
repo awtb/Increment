@@ -1,4 +1,4 @@
-# increment
+# Increment
 Project template for [BlackSheep](https://github.com/Neoteroi/BlackSheep)
 web framework to start Web APIs.
 
