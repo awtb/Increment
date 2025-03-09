@@ -2,7 +2,7 @@ from typing import Tuple
 
 from rodi import Container
 
-from increment.app.settings import Settings
+from increment.api.settings import Settings
 
 
 def configure_services(settings: Settings) -> Tuple[Container, Settings]:

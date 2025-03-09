@@ -20,7 +20,7 @@ class Settings(BaseSettings):
     # export app_info='{"title": "x", "version": "0.0.2"}'
     info: APIInfo = APIInfo()
 
-    # to override app:
+    # to override api:
     # export app_app='{"show_error_details": True}'
     app: App = App()
 
