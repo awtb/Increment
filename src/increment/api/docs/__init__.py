@@ -10,8 +10,8 @@ from blacksheep.server.openapi.ui import ReDocUIProvider
 from blacksheep.server.openapi.v3 import OpenAPIHandler
 from openapidocs.v3 import Info
 
-from increment.app.docs.binders import set_binders_docs
-from increment.app.settings import Settings
+from increment.api.docs.binders import set_binders_docs
+from increment.api.settings import Settings
 
 
 def configure_docs(app: Application, settings: Settings):

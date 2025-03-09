@@ -1,6 +1,6 @@
 from blacksheep import Application
 
-from increment.app.settings import Settings
+from increment.api.settings import Settings
 
 
 def configure_authentication(app: Application, settings: Settings):

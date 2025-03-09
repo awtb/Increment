@@ -14,11 +14,13 @@ from sqlalchemy.ext.asyncio import (
     create_async_engine,
 )
 
-from increment.app.auth import configure_authentication
-from increment.app.docs import configure_docs
-from increment.app.errors import configure_error_handlers
-from increment.app.services import configure_services
-from increment.app.settings import Settings, load_settings
+from increment.api.auth import configure_authentication
+from increment.api.docs import configure_docs
+from increment.api.errors import configure_error_handlers
+from increment.api.services import configure_services
+from increment.api.settings import Settings, load_settings
+from increment.domain.repos.increment import IncrementRepo
+from increment.infra.adapters.repos.increment import IncrementRepository
 
 
 def session_factory(
@@ -64,6 +66,8 @@ async def configure_sqlalchemy_engine(
     application.services.add_transient_by_factory(
         session_factory,
     )
+
+    application.services.add_scoped(IncrementRepo, IncrementRepository)
 
 
 async def dispose_sqlalchemy_engine(
