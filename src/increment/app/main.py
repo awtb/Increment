@@ -8,6 +8,7 @@ from blacksheep import Application
 from rodi import ActivationScope, Container
 from sqlalchemy import URL
 from sqlalchemy.ext.asyncio import (
+    AsyncEngine,
     AsyncSession,
     async_sessionmaker,
     create_async_engine,
@@ -65,6 +66,14 @@ async def configure_sqlalchemy_engine(
     )
 
 
+async def dispose_sqlalchemy_engine(
+    application: Application,
+):
+    engine = application.services.resolve(AsyncEngine)
+
+    await engine.dispose()
+
+
 def configure_application(
     services: Container,
     settings: Settings,
@@ -78,6 +87,7 @@ def configure_application(
     configure_docs(app, settings)
 
     app.on_start += configure_sqlalchemy_engine
+    app.on_stop += dispose_sqlalchemy_engine
 
     return app
 
