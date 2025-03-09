@@ -2,4 +2,4 @@
 
 export PYTHONPATH=$(pwd)/src:$PYTHONPATH
 
-python -m increment
+python -m increment --reload
