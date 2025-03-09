@@ -1,5 +1,5 @@
 [project]
-name = "increment"
+name = "Increment"
 version = "0.1.0"
 description = "Just experiment"
 readme = "README.md"
@@ -12,6 +12,7 @@ dependencies = [
     "pre-commit>=4.1.0",
     "pydantic>=2.10.6",
     "pydantic-settings>=2.8.1",
+    "rodi>=2.0.6",
     "sqlalchemy>=2.0.38",
     "typer>=0.15.2",
     "uvicorn>=0.34.0",
