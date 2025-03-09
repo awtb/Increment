@@ -9,9 +9,6 @@ from increment.app.binders import PageOptionsBinder
 
 
 def set_binders_docs(docs: OpenAPIHandler):
-    """
-    This function configures OpenAPI Documentation for custom application binders.
-    """
     docs.set_binder_docs(
         PageOptionsBinder,
         [
@@ -41,7 +38,7 @@ def set_binders_docs(docs: OpenAPIHandler):
             Parameter(
                 "order",
                 ParameterLocation.QUERY,
-                description=("Optional sort order (asc / desc) - default asc."),
+                description="Optional sort order (asc / desc) - default asc.",
                 schema=Schema(ValueType.STRING, default=None),
             ),
         ],

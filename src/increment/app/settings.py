@@ -1,12 +1,3 @@
-"""
-Application settings handled using Pydantic Settings management.
-
-Pydantic is used both to read app settings from various sources, and to validate their
-values.
-
-https://docs.pydantic.dev/latest/usage/settings/
-"""
-
 from pydantic import BaseModel, Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 

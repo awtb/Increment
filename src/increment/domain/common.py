@@ -26,10 +26,6 @@ class PaginatedSet(Generic[T]):
 
 @dataclass(slots=True)
 class SetterAction(Generic[T]):
-    """
-    Describes an action that requires adding and removing objects from a collection.
-    """
-
     add: list[T] = field(default_factory=list)
     remove: list[T] = field(default_factory=list)
 
@@ -54,7 +50,7 @@ class PageOptions(BaseModel):
         100, description="Maximum number of results per page."
     )
     continuation_id: int | None = Field(
-        None, description="If provided, the ID of the last object that was retrieved."
+        None,
     )
     sort_order: SortOrder = SortOrder.ASC
 

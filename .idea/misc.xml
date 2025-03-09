@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Black">
+    <option name="enabledOnReformat" value="true" />
+    <option name="enabledOnSave" value="true" />
+    <option name="pathToExecutable" value="/opt/homebrew/bin/black" />
     <option name="sdkName" value="Poetry (Increment) (2)" />
   </component>
 </project>

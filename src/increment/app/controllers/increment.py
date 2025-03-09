@@ -1,4 +1,4 @@
-from blacksheep.server.controllers import Controller, get, post, APIController
+from blacksheep.server.controllers import APIController, post
 
 
 class IncrementController(APIController):

@@ -9,7 +9,7 @@ from increment.app.auth import configure_authentication
 from increment.app.docs import configure_docs
 from increment.app.errors import configure_error_handlers
 from increment.app.services import configure_services
-from increment.app.settings import load_settings, Settings
+from increment.app.settings import Settings, load_settings
 
 
 def configure_application(
