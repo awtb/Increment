@@ -6,6 +6,7 @@ information, used to generate OpenAPI documentation.
 """
 
 from blacksheep import Application
+from blacksheep.server.openapi.ui import ReDocUIProvider
 from blacksheep.server.openapi.v3 import OpenAPIHandler
 from openapidocs.v3 import Info
 
@@ -17,6 +18,13 @@ def configure_docs(app: Application, settings: Settings):
     docs = OpenAPIHandler(
         info=Info(title=settings.info.title, version=settings.info.version),
         anonymous_access=True,
+        ui_path="/swagger",
+    )
+
+    docs.ui_providers.append(
+        ReDocUIProvider(
+            ui_path="/docs",
+        )
     )
 
     # include only endpoints whose path starts with "/api/"
