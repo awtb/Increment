@@ -1,7 +1,7 @@
 import uvicorn
 from typer import Option, Typer
 
-from increment.app.settings import load_settings
+from increment.api.settings import load_settings
 
 t = Typer()
 
@@ -12,7 +12,7 @@ def start(
 ):
     settings = load_settings()
     uvicorn.run(
-        "increment.app.main:app",
+        "increment.api.main:app",
         host=settings.serving_host,
         port=settings.serving_port,
         reload=reload,
