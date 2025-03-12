@@ -101,4 +101,4 @@ venv.bak/
 .mypy_cache/
 
 # JetBrains related
-.idea
+*.idea
