@@ -1,6 +1,7 @@
 from blacksheep.server.controllers import APIController, get, post
 
-from increment.domain.repos.increment import IncrementRepo
+from increment.domain.models.increment import IncrementsCount
+from increment.domain.services.increment import IncrementService
 
 
 class IncrementController(APIController):
@@ -13,16 +14,22 @@ class IncrementController(APIController):
         return "increment"
 
     @post()
-    async def increment(self, repo: IncrementRepo):
+    async def make_increment(self, increment_service: IncrementService):
         """
         Slower version of increment, v1
         """
 
-        await repo.add_one()
+        await increment_service.increment()
 
     @get()
-    async def get_one(self, repo: IncrementRepo):
-        return {"count": await repo.get_count()}
+    async def get_increments_count(
+        self,
+        service: IncrementService,
+    ) -> IncrementsCount:
+        """Get count of increments"""
+        count = await service.get_count()
+
+        return count
 
 
 class IncrementControllerV2(APIController):
