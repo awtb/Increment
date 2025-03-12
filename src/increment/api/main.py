@@ -20,7 +20,11 @@ from increment.api.errors import configure_error_handlers
 from increment.api.services import configure_services
 from increment.api.settings import Settings, load_settings
 from increment.domain.repos.increment import IncrementRepo
+from increment.domain.services.increment import IncrementService
 from increment.infra.adapters.repos.increment import IncrementRepository
+from increment.infra.adapters.services.increment import (
+    IncrementService as IncrementAdapter,
+)
 
 
 def session_factory(
@@ -68,6 +72,7 @@ async def configure_sqlalchemy_engine(
     )
 
     application.services.add_scoped(IncrementRepo, IncrementRepository)
+    application.services.add_scoped(IncrementService, IncrementAdapter)
 
 
 async def dispose_sqlalchemy_engine(
