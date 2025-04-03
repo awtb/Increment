@@ -1,33 +1,29 @@
-# Increment
-Project template for [BlackSheep](https://github.com/Neoteroi/BlackSheep)
-web framework to start Web APIs.
+# Increment - a high performance counter API
+This project focuses on developing a highly optimized API endpoint for incrementing an integer field stored in a single-row database table. The primary goal is to maximize requests per second (RPS) by exploring various performance optimizations.
 
-## Getting started
+## Tech Stack
 
-1. create a Python virtual environment
-2. install dependencies
-3. run the application
+- **Language:** Python  
+- **Web Framework:** BlackSheep  
+- **Database:** PostgreSQL / MySQL / SQLite  
 
-### For Linux and Mac
+## Overview
+
+- The database contains a single row with one `INTEGER` column.  
+- The API provides an endpoint to atomically increment this field.  
+- The main objective is to push the RPS to its limits.  
+
+More details on implementation and benchmarking will be added as the project evolves.
+
+## Installation
+Wil be added soon...
+
+## Benchmarking 
+
+We use [Locust](https://locust.io/) for load testing.  
+
+You can run it using cmd below
 
 ```bash
-python -m venv venv
-
-source venv/bin/activate
-
-pip install -r requirements.txt
-
-python dev.py
-```
-
-### For Windows
-
-```bash
-py -3.11 -m venv venv
-
-venv\Scripts\activate
-
-pip install -r requirements.txt
-
-python dev.py
+uv run locust -f src/tests/load/increment.py
 ```
