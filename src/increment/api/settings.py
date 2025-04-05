@@ -34,8 +34,8 @@ class Settings(BaseSettings):
         default=8080,
     )
 
-    db_driver: str
-    db_driver_sync: str
+    db_driver: str = "postgresql+asyncpg"
+    db_driver_sync: str = "postgresql+psycopg2"
     db_user: str
     db_password: str
     db_name: str

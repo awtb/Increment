@@ -5,6 +5,7 @@ description = "Just experiment"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "alembic>=1.15.2",
     "asyncpg>=0.30.0",
     "blacksheep>=2.0.8",
     "blacksheep-cli>=0.0.4",
@@ -12,6 +13,7 @@ dependencies = [
     "isort>=6.0.1",
     "locust>=2.33.1",
     "pre-commit>=4.1.0",
+    "psycopg2>=2.9.10",
     "pydantic>=2.10.6",
     "pydantic-settings>=2.8.1",
     "rodi>=2.0.6",
