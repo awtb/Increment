@@ -12,7 +12,7 @@ class IncrementRepository(IncrementRepo, BaseRepo):
 
         incr_obj = res.scalars().first()
 
-        return IncrementsCount(count=incr_obj.count)  # type: ignore
+        return IncrementsCount(incr_obj.count)  # type: ignore
 
     async def add_one(self):
         await self._session.execute(
