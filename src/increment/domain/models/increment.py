@@ -1,6 +1,3 @@
-from dataclasses import dataclass
-
-
-@dataclass
 class IncrementsCount:
-    count: int
+    def __init__(self, incr_count: int) -> None:
+        self.count = incr_count
