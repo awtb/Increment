@@ -1,3 +1,4 @@
+from blacksheep import JSONContent, Response
 from blacksheep.server.controllers import APIController, get, post
 
 from increment.domain.models.increment import IncrementsCount
@@ -24,9 +25,8 @@ class IncrementControllerV2(APIController):
     @get()
     async def get_increments_count(
         self,
-        service: IncrementV2Service,
-    ) -> IncrementsCount:
+        incrs_counter: IncrementsCount,
+    ):
         """Get count of increments, v2"""
-        count = await service.get_count()
-
-        return count
+        content = JSONContent({"count": incrs_counter.count})
+        return Response(content=content, status=200)
