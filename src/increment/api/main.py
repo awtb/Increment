@@ -20,10 +20,18 @@ from increment.api.errors import configure_error_handlers
 from increment.api.services import configure_services
 from increment.api.settings import Settings, load_settings
 from increment.domain.repos.increment import IncrementRepo
+from increment.domain.repos.increment_v2 import IncrementV2Repository
 from increment.domain.services.increment import IncrementService
+from increment.domain.services.increment_v2 import IncrementV2Service
 from increment.infra.adapters.repos.increment import IncrementRepository
+from increment.infra.adapters.repos.increment_v2 import (
+    IncrementRepoV2 as IncrementRepositoryV2Adapter,
+)
 from increment.infra.adapters.services.increment import (
     IncrementService as IncrementAdapter,
+)
+from increment.infra.adapters.services.increment_v2 import (
+    IncrementServiceV2Adapter,
 )
 
 
@@ -73,6 +81,16 @@ async def configure_sqlalchemy_engine(
 
     application.services.add_scoped(IncrementRepo, IncrementRepository)
     application.services.add_scoped(IncrementService, IncrementAdapter)
+
+    # V2
+    application.services.add_scoped(
+        IncrementV2Service,
+        IncrementServiceV2Adapter,
+    )
+    application.services.add_scoped(
+        IncrementV2Repository,
+        IncrementRepositoryV2Adapter,
+    )
 
 
 async def dispose_sqlalchemy_engine(
