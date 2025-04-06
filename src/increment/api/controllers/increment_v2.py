@@ -16,7 +16,7 @@ class IncrementControllerV2(APIController):
     @post()
     async def make_increment(self, increment_service: IncrementV2Service):
         """
-        Slower version of increment, v1
+        Faster version of increment, v2
         """
 
         await increment_service.increment()
@@ -26,7 +26,7 @@ class IncrementControllerV2(APIController):
         self,
         service: IncrementV2Service,
     ) -> IncrementsCount:
-        """Get count of increments"""
+        """Get count of increments, v2"""
         count = await service.get_count()
 
         return count
