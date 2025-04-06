@@ -3,6 +3,7 @@ import logging
 from sqlalchemy import update
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from increment.api.settings import Settings
 from increment.domain.models.increment import IncrementsCount
 from increment.domain.repos.increment_v2 import IncrementV2Repository
 from increment.infra.adapters.repos.base import BaseRepo
@@ -10,10 +11,12 @@ from increment.infra.db.models import Increment
 
 
 class IncrementV2RepoAdapter(IncrementV2Repository, BaseRepo):
-    def __init__(self, session: AsyncSession, count: IncrementsCount):
+    def __init__(
+        self, settings: Settings, session: AsyncSession, count: IncrementsCount
+    ):
         super().__init__(session)
         self._counter = count
-        self._update_interval = 100
+        self._update_interval = settings.counter_flush_interval
         self._logger = logging.getLogger(
             f"{__name__}.{self.__class__.__name__}",
         )
