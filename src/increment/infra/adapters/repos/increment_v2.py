@@ -1,4 +1,6 @@
-from sqlalchemy import select, update
+import logging
+
+from sqlalchemy import update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from increment.domain.models.increment import IncrementsCount
@@ -8,35 +10,28 @@ from increment.infra.db.models import Increment
 
 
 class IncrementV2RepoAdapter(IncrementV2Repository, BaseRepo):
-    def __init__(self, session: AsyncSession):
+    def __init__(self, session: AsyncSession, count: IncrementsCount):
         super().__init__(session)
-        self._initialized = False
-        self._counter = 0
+        self._counter = count
         self._update_interval = 100
-
-    async def _initialize_counter(self):
-        res = await self._session.execute(select(Increment).limit(1))
-        incr_obj = res.scalars().first()
-        self._counter = incr_obj.count
-        self._initialized = True
+        self._logger = logging.getLogger(
+            f"{__name__}.{self.__class__.__name__}",
+        )
 
     async def flush_counter(self):
+        self._logger.info("Flushing increments counter")
         await self._session.execute(
-            update(Increment).values(count=self._counter),
+            update(Increment).values(count=self._counter.count),
         )
         await self._session.commit()
 
-    async def increment(self) -> None:
-        if not self._initialized:
-            await self._initialize_counter()
+    async def add_one(self) -> None:
+        self._logger.debug(f"IncrementV2RepoAdapter.add_one: {self._counter}")
 
-        self._counter += 1
+        self._counter.count += 1
 
-        if self._counter % self._update_interval == 0:
+        if self._counter.count % self._update_interval == 0:
             await self.flush_counter()
 
     async def get_count(self) -> IncrementsCount:
-        if not self._initialized:
-            await self._initialize_counter()
-
-        return IncrementsCount(self._counter)
+        return self._counter
