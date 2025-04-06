@@ -27,6 +27,7 @@ def upgrade() -> None:
         sa.Column("count", sa.Integer(), nullable=False),
         sa.PrimaryKeyConstraint("count"),
     )
+    op.execute("insert into increment values (0);")
     # ### end Alembic commands ###
 
 
