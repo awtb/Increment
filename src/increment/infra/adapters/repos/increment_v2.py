@@ -20,6 +20,12 @@ class IncrementV2RepoAdapter(IncrementV2Repository, BaseRepo):
         self._counter = incr_obj.count
         self._initialized = True
 
+    async def flush_counter(self):
+        await self._session.execute(
+            update(Increment).values(count=self._counter),
+        )
+        await self._session.commit()
+
     async def increment(self) -> None:
         if not self._initialized:
             await self._initialize_counter()
@@ -27,10 +33,7 @@ class IncrementV2RepoAdapter(IncrementV2Repository, BaseRepo):
         self._counter += 1
 
         if self._counter % self._update_interval == 0:
-            await self._session.execute(
-                update(Increment).values(count=self._counter),
-            )
-            await self._session.commit()
+            await self.flush_counter()
 
     async def get_count(self) -> IncrementsCount:
         if not self._initialized:
