@@ -25,7 +25,7 @@ from increment.domain.services.increment import IncrementService
 from increment.domain.services.increment_v2 import IncrementV2Service
 from increment.infra.adapters.repos.increment import IncrementRepository
 from increment.infra.adapters.repos.increment_v2 import (
-    IncrementRepoV2 as IncrementRepositoryV2Adapter,
+    IncrementV2RepoAdapter as IncrementRepositoryV2Adapter,
 )
 from increment.infra.adapters.services.increment import (
     IncrementService as IncrementAdapter,
