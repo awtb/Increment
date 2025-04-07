@@ -1,0 +1,31 @@
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: increment_user
+      POSTGRES_PASSWORD: increment_pass
+      POSTGRES_DB: increment
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: increment
+    ports:
+      - ${SERVING_PORT:-8000}:${SERVING_PORT:-8000}
+    environment:
+      - DB_PASSWORD=increment_pass
+      - DB_NAME=increment
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=increment_user
+      - SERVING_PORT=${SERVING_PORT:-8000}
+    command: [ "uv", "run", "scripts/prod.sh" ]
+
+    depends_on:
+      - db
+
+
+volumes:
+  pgdata:

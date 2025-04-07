@@ -1,0 +1,41 @@
+# Byte-compiled / cached Python files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+
+# Virtual environments
+venv/
+.venv/
+.env/
+
+# Git files
+.git/
+.gitignore
+
+# Docker-related files
+.dockerignore
+Dockerfile
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Testing and coverage results
+.coverage
+htmlcov/
+*.pytest_cache/
+
+# Temporary files
+*.swp
+*.swo
+*.tmp
+
+# Package files
+*.egg-info/
+dist/
+build/
