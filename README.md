@@ -25,7 +25,7 @@ More details on implementation and benchmarking will be added as the project evo
 
 ## Installation
 ```bash
-git clone https://awtb/Increment
+git clone https://github.com/awtb/Increment
 ```
 
 ### Configuring project
