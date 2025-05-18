@@ -86,54 +86,37 @@ uv run locust -f src/tests/load/increment_v2.py
 ```
 
 ## My results
-<h3>📈 Performance Benchmark: <code>/api/v1/increment</code> vs <code>/api/v2/increment</code></h3>
+### 📈 Performance Benchmark: `/api/v1/increment` vs `/api/v2/increment`
 
-<h4>Summary</h4>
-<table border="1" cellpadding="6" cellspacing="0">
-  <thead>
-    <tr>
-      <th>Metric</th>
-      <th>/api/v1/increment</th>
-      <th>/api/v2/increment</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td><strong>Total Requests</strong></td><td>65,230</td><td>434,079</td></tr>
-    <tr><td><strong>Failures</strong></td><td>0 (0.00%)</td><td>0 (0.00%)</td></tr>
-    <tr><td><strong>Average Response Time (ms)</strong></td><td>349</td><td>62</td></tr>
-    <tr><td><strong>Median Response Time (ms)</strong></td><td>380</td><td>13</td></tr>
-    <tr><td><strong>Max Response Time (ms)</strong></td><td>2363</td><td>7368</td></tr>
-    <tr><td><strong>Requests/sec (throughput)</strong></td><td>~2359</td><td>~5125</td></tr>
-  </tbody>
-</table>
+#### Summary
 
-<h4>Response Time Percentiles</h4>
-<table border="1" cellpadding="6" cellspacing="0">
-  <thead>
-    <tr>
-      <th>Percentile</th>
-      <th>/api/v1/increment (ms)</th>
-      <th>/api/v2/increment (ms)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td>50%</td><td>380</td><td>13</td></tr>
-    <tr><td>75%</td><td>400</td><td>85</td></tr>
-    <tr><td>90%</td><td>520</td><td>190</td></tr>
-    <tr><td>95%</td><td>760</td><td>230</td></tr>
-    <tr><td>98%</td><td>870</td><td>250</td></tr>
-    <tr><td>99%</td><td>910</td><td>270</td></tr>
-    <tr><td>99.9%</td><td>1300</td><td>2900</td></tr>
-    <tr><td>99.99%</td><td>2000</td><td>6100</td></tr>
-    <tr><td>100%</td><td>2400</td><td>7368</td></tr>
-  </tbody>
-</table>
+| Metric                         | `/api/v1/increment` | `/api/v2/increment` |
+|-------------------------------|---------------------|---------------------|
+| **Total Requests**            | 65,230              | 434,079             |
+| **Failures**                  | 0 (0.00%)           | 0 (0.00%)           |
+| **Average Response Time (ms)**| 349                 | 62                  |
+| **Median Response Time (ms)** | 380                 | 13                  |
+| **Max Response Time (ms)**    | 2363                | 7368                |
+| **Requests/sec (throughput)** | ~2359               | ~5125               |
 
-<h4>Insights</h4>
-<ul>
-  <li><code>/api/v2/increment</code> is <strong>~5–6x faster</strong> on average.</li>
-  <li>Handles <strong>~7x more requests</strong> during the same duration.</li>
-  <li>Significant latency improvements across all percentiles.</li>
-  <li>No request failures in either version.</li>
-  <li>CPU usage reached high levels — consider <a href="https://docs.locust.io/en/stable/running-distributed.html" target="_blank">distributed load testing</a> if scaling further.</li>
-</ul>
+#### Response Time Percentiles
+
+| Percentile | `/api/v1/increment (ms)` | `/api/v2/increment (ms)` |
+|------------|---------------------------|---------------------------|
+| 50%        | 380                       | 13                        |
+| 75%        | 400                       | 85                        |
+| 90%        | 520                       | 190                       |
+| 95%        | 760                       | 230                       |
+| 98%        | 870                       | 250                       |
+| 99%        | 910                       | 270                       |
+| 99.9%      | 1300                      | 2900                      |
+| 99.99%     | 2000                      | 6100                      |
+| 100%       | 2400                      | 7368                      |
+
+#### Insights
+
+- `/api/v2/increment` is **~5–6x faster** on average.
+- Handles **~7x more requests** during the same duration.
+- Significant latency improvements across all percentiles.
+- No request failures in either version.
+- CPU usage reached high levels — consider [distributed load testing](https://docs.locust.io/en/stable/running-distributed.html) if scaling further.
