@@ -15,7 +15,6 @@ services:
       DB_HOST: db
       SERVING_PORT: ${SERVING_PORT:-8000}
       DB_NAME: increment_db
-      PYTHONPATH: /workspace/src
     depends_on:
       - db
     ports:
