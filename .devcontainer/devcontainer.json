@@ -25,7 +25,7 @@
       "ppa": true
     }
   },
-  "postCreateCommand": "uv sync && uv run alembic upgrade head",
+  "postCreateCommand": "uv run pre-commit install && uv run alembic upgrade head",
   "initializeCommand": "echo 'Starting dev container setup...'",
   "onCreateCommand": "echo 'Dev container created successfully!'",
 }
