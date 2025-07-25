@@ -120,3 +120,6 @@ uv run locust -f src/tests/load/increment_v2.py
 - Significant latency improvements across all percentiles.
 - No request failures in either version.
 - CPU usage reached high levels — consider [distributed load testing](https://docs.locust.io/en/stable/running-distributed.html) if scaling further.
+
+#### Setting up dev-env for contributing
+You can use predefined `.devcontainer/devcontainer.json` for working with PyCharm or Visual Studio Code.

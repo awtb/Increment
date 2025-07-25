@@ -48,7 +48,7 @@ class Settings(BaseSettings):
         default=5_000,
     )
 
-    model_config = SettingsConfigDict(env_file=".env")
+    model_config = SettingsConfigDict()
 
 
 def load_settings() -> Settings:
