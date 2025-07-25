@@ -1,5 +1,7 @@
 FROM python:3.13-slim
 
+ENV PYTHONPATH=${PYTHONPATH:-}:/workspace/src
+
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /usr/local/bin/
 
 RUN apt-get update && apt-get install -y \
@@ -13,9 +15,9 @@ COPY pyproject.toml .
 COPY uv.lock .
 
 RUN uv venv
-RUN uv sync --frozen
+RUN uv sync
 
-
-ENV PYTHONPATH=${PYTHONPATH:-}:/workspace/src
+ENV UV_PYTHON=/workspace/.venv/bin/python
+ENV PYTHONPATH=$PYTHONPATH:/IdeaProjects/Increment/src
 
 COPY . .
