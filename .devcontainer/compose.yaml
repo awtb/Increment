@@ -1,0 +1,38 @@
+name: increment-dev
+services:
+  app:
+    container_name: increment_app_devcontainer
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+    volumes:
+      - .:/workspace:cached
+      - .git:/workspace/.git
+    env_file:
+      - ../.env
+    environment:
+      DB_PASSWORD: password
+      DB_HOST: db
+      SERVING_PORT: ${SERVING_PORT:-8000}
+      DB_NAME: increment_db
+      PYTHONPATH: /workspace/src
+    depends_on:
+      - db
+    ports:
+      - "${SERVING_PORT:-8000}:${SERVING_PORT:-8000}"
+    command: ["prod.sh"]
+
+  db:
+    container_name: increment_db_devcontainer
+    image: postgres:17
+    environment:
+      - POSTGRES_DB=increment_db
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
+  dev-container-extensions:
+  dev-container-extensions-insiders:
