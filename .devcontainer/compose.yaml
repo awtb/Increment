@@ -19,8 +19,9 @@ services:
       - db
     ports:
       - "${SERVING_PORT:-8000}:${SERVING_PORT:-8000}"
-    command: ["prod.sh"]
+      - "8089:8089" # For exposing locust stuff
 
+    command: ["uv", "run", "scripts/dev.sh"]
   db:
     container_name: increment_db_devcontainer
     image: postgres:17
