@@ -25,8 +25,8 @@ class IncrementControllerV2(APIController):
     @get()
     async def get_increments_count(
         self,
-        incrs_counter: IncrementsCount,
+        increments_count: IncrementsCount,
     ):
         """Get count of increments, v2"""
-        content = JSONContent({"count": incrs_counter.count})
+        content = JSONContent({"count": increments_count.count})
         return Response(content=content, status=200)
