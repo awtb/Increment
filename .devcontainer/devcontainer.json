@@ -10,13 +10,14 @@
       }
     },
   },
-  "remoteUser": "vscode",
+
+  "remoteUser": "pycharm",
   "features": {
     "ghcr.io/devcontainers/features/common-utils:2": {
       "installZsh": true,
       "installOhMyZsh": true,
       "upgradePackages": true,
-      "username": "vscode",
+      "username": "pycharm",
       "userUid": "1000",
       "userGid": "1000"
     },
