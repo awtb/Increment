@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: increment-app
+  namespace: increment
+  labels:
+    app: increment-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: increment-app
+  template:
+    metadata:
+      labels:
+        app: increment-app
+    spec:
+      containers:
+      - name: increment-app
+        image: increment:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8000
+        env:
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: increment-secrets
+              key: DB_PASSWORD
+        - name: DB_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: increment-config
+              key: DB_NAME
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: increment-config
+              key: DB_HOST
+        - name: DB_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: increment-config
+              key: DB_PORT
+        - name: DB_USER
+          valueFrom:
+            configMapKeyRef:
+              name: increment-config
+              key: DB_USER
+        - name: SERVING_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: increment-config
+              key: SERVING_PORT
+        command: ["uv", "run", "scripts/prod.sh"]
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
