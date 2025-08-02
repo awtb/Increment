@@ -32,8 +32,8 @@ from increment.infra.adapters.repos.increment_v2 import (
 from increment.infra.adapters.services.increment import (
     IncrementService as IncrementAdapter,
 )
-from increment.infra.adapters.services.increment_v2 import (  # noqa:
-    IncrementServiceV2Adapter,
+from increment.infra.adapters.services.increment_v2 import (
+    IncrementServiceV2Adapter as IncrementV2Adapter,
 )
 
 
@@ -93,7 +93,7 @@ async def configure_sqlalchemy_engine(
     # V2
     application.services.add_scoped(
         IncrementV2Service,
-        IncrementServiceV2Adapter,
+        IncrementV2Adapter,
     )
     application.services.add_scoped(
         IncrementV2Repository,
