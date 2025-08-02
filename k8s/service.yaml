@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: increment-service
+  namespace: increment
+spec:
+  selector:
+    app: increment-app
+  ports:
+  - port: 80
+    targetPort: 8000
+    protocol: TCP
+  type: ClusterIP
