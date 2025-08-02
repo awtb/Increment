@@ -32,7 +32,7 @@ from increment.infra.adapters.repos.increment_v2 import (
 from increment.infra.adapters.services.increment import (
     IncrementService as IncrementAdapter,
 )
-from increment.infra.adapters.services.increment_v2 import (
+from increment.infra.adapters.services.increment_v2 import (  # noqa:
     IncrementServiceV2Adapter,
 )
 

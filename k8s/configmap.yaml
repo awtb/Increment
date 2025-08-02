@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: increment-config
+  namespace: increment
+data:
+  DB_NAME: "increment"
+  DB_HOST: "postgres-service"
+  DB_PORT: "5432"
+  DB_USER: "increment_user"
+  SERVING_PORT: "8000"
