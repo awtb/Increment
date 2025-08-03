@@ -11,6 +11,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    image: ghcr.io/awtb/increment:latest
     container_name: increment
     ports:
       - ${SERVING_PORT:-8000}:${SERVING_PORT:-8000}
