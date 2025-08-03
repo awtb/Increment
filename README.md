@@ -47,8 +47,15 @@ SERVING_PORT=8000
 
 ### Running project
 #### First option, using `docker compose`
+
+
+**Using prebuilt image.**
 ```
 docker compose up
+```
+**Building manually**
+```
+docker compose up --build
 ```
 
 #### Second option, by hand
