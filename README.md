@@ -58,7 +58,14 @@ docker compose up
 docker compose up --build
 ```
 
-#### Second option, by hand
+#### Second option, using Kubernetes
+
+Apply manifests
+```
+kubectl apply -f ./k8s
+```
+
+#### Third option, by hand
 
 Make sure you have [UV](https://docs.astral.sh/uv/) installed
 
