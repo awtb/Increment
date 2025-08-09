@@ -13,7 +13,7 @@ from increment.infra.db.models import Increment
 class IncrementV2RepoAdapter(IncrementV2Repository, BaseRepo):
     def __init__(
         self, settings: Settings, session: AsyncSession, count: IncrementsCount
-    ):
+    ) -> None:
         super().__init__(session)
         self._counter = count
         self._update_interval = settings.counter_flush_interval
@@ -21,7 +21,7 @@ class IncrementV2RepoAdapter(IncrementV2Repository, BaseRepo):
             f"{__name__}.{self.__class__.__name__}",
         )
 
-    async def flush_counter(self):
+    async def flush_counter(self) -> None:
         self._logger.info("Flushing increments counter")
         await self._session.execute(
             update(Increment).values(count=self._counter.count),

@@ -14,7 +14,7 @@ class IncrementRepository(IncrementRepo, BaseRepo):
 
         return IncrementsCount(incr_obj.count)  # type: ignore
 
-    async def add_one(self):
+    async def add_one(self) -> None:
         await self._session.execute(
             update(Increment).values(count=Increment.count + 1),
         )

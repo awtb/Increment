@@ -14,7 +14,10 @@ class IncrementController(APIController):
         return "increment"
 
     @post()
-    async def make_increment(self, increment_service: IncrementService):
+    async def make_increment(
+        self,
+        increment_service: IncrementService,
+    ) -> None:
         """
         Slower version of increment, v1
         """
