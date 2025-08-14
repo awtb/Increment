@@ -86,18 +86,19 @@ async def configure_sqlalchemy_engine(
     application.services.add_scoped(IncrementService, IncrementAdapter)
 
     srv = application.services.resolve(IncrementService)
-    incr_count = await srv.get_count()
+    increments_count = await srv.get_count()
 
-    application.services.add_instance(incr_count)
+    application.services.add_instance(increments_count)
 
     # V2
     application.services.add_scoped(
-        IncrementV2Service,
-        IncrementV2Adapter,
-    )
-    application.services.add_scoped(
         IncrementV2Repository,
         IncrementRepositoryV2Adapter,
+    )
+
+    application.services.add_scoped(
+        IncrementV2Service,
+        IncrementV2Adapter,
     )
 
 
