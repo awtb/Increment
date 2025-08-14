@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from increment.domain.models.increment import IncrementsCount
+from increment.api.schemas.count import IncrementsCount
 
 
 class IncrementService(ABC):

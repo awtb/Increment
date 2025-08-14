@@ -9,15 +9,15 @@ class SystemController(APIController):
 
     @classmethod
     def class_name(cls) -> str:
-        return "System"
+        return "system"
 
-    @get()
+    @get(pattern="/health")
     async def get_health_status(self) -> Response:
         """Health-checking endpoint"""
         content = JSONContent({"healthy": True})
         return Response(status=200, content=content)
 
-    @get()
+    @get(pattern="/ready")
     async def is_system_ready(self) -> Response:
         """Is system ready to accept requests"""
         content = JSONContent({"ready": True})

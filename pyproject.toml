@@ -5,21 +5,22 @@ description = "Just experiment"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "alembic>=1.15.2",
+    "alembic>=1.16.4",
     "asyncpg>=0.30.0",
-    "blacksheep>=2.0.8",
+    "black>=25.1.0",
+    "blacksheep>=2.4.0",
     "blacksheep-cli>=0.0.4",
     "greenlet>=3.1.1",
     "isort>=6.0.1",
-    "locust>=2.33.1",
-    "pre-commit>=4.1.0",
+    "locust>=2.38.0",
+    "pre-commit>=4.2.0",
     "psycopg2-binary>=2.9.10",
-    "pydantic>=2.10.6",
-    "pydantic-settings>=2.8.1",
-    "rodi>=2.0.6",
+    "pydantic>=2.11.7",
+    "pydantic-settings>=2.10.1",
+    "rodi>=2.0.8",
     "sqlalchemy>=2.0.38",
-    "typer>=0.15.2",
-    "uvicorn>=0.34.0",
+    "typer>=0.16.0",
+    "uvicorn>=0.35.0",
 ]
 
 [tool.isort]

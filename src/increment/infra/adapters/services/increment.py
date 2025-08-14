@@ -1,4 +1,4 @@
-from increment.domain.models.increment import IncrementsCount
+from increment.api.schemas.count import IncrementsCount
 from increment.domain.repos.increment import IncrementRepo
 from increment.domain.services.increment import (
     IncrementService as AbstractIncrementService,
