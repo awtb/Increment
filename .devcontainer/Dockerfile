@@ -11,13 +11,4 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /workspace
 
-COPY pyproject.toml .
-COPY uv.lock .
-
-RUN uv venv
-RUN uv sync
-
-ENV UV_PYTHON=/workspace/.venv/bin/python
-ENV PYTHONPATH=$PYTHONPATH:/IdeaProjects/Increment/src
-
 COPY . .
