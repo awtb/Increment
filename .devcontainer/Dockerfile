@@ -11,4 +11,5 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /workspace
 
-COPY . .
+COPY pyproject.toml uv.lock* /workspace/
+RUN uv sync --frozen
