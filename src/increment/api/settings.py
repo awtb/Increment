@@ -45,7 +45,7 @@ class Settings(BaseSettings):
     log_level: str = "INFO"
 
     counter_flush_interval: int = Field(
-        default=100_000,
+        default=30,
     )
 
     model_config = SettingsConfigDict(env_file=".env")
