@@ -6,7 +6,7 @@ parameters into instances of objects, injected to request handlers.
 from blacksheep import FromHeader, Request
 from blacksheep.server.bindings import Binder
 
-from increment.domain.common import PageOptions
+from increment.domain.models.common import PageOptions
 
 
 class IfNoneMatchHeader(FromHeader[str | None]):
