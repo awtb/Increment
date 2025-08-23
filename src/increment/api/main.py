@@ -20,21 +20,19 @@ from increment.api.docs import configure_docs
 from increment.api.errors import configure_error_handlers
 from increment.api.services import configure_services
 from increment.api.settings import Settings, load_settings
-from increment.domain.models.increment import IncrementsCount
-from increment.domain.repos.increment import IncrementRepo
-from increment.domain.repos.increment_v2 import IncrementV2Repository
-from increment.domain.services.increment import IncrementService
-from increment.domain.services.increment_v2 import IncrementV2Service
-from increment.infra.adapters.repos.increment import IncrementRepository
-from increment.infra.adapters.repos.increment_v2 import (
-    IncrementV2RepoAdapter as IncrementRepositoryV2Adapter,
-)
-from increment.infra.adapters.services.increment import (
-    IncrementService as IncrementAdapter,
-)
-from increment.infra.adapters.services.increment_v2 import (
-    IncrementServiceV2Adapter as IncrementV2Adapter,
-)
+from increment.domain.models.counter import Counter
+from increment.domain.repos.counter import CounterRepo
+from increment.domain.services.counter import CounterService
+
+
+async def counter_factory(container: Container) -> Counter:
+    repository = CounterRepo(
+        settings=container.resolve(Settings),
+        session=container.resolve(AsyncSession),
+        increments_count=Counter(count=0),
+    )
+    counter = await repository.get_counter()
+    return Counter(count=counter.count)
 
 
 def session_factory(
@@ -48,7 +46,7 @@ def session_factory(
 
 async def configure_sqlalchemy_engine(
     application: Application,
-):
+) -> None:
     logging.info("Configuring SQLAlchemy engine")
     settings = application.services.resolve(Settings)
 
@@ -82,39 +80,36 @@ async def configure_sqlalchemy_engine(
         session_factory,
     )
 
-    application.services.add_scoped(IncrementRepo, IncrementRepository)
-    application.services.add_scoped(IncrementService, IncrementAdapter)
+    counter = await counter_factory(application.services)
 
-    srv = application.services.resolve(IncrementService)
-    increments_count = await srv.get_count()
-
-    application.services.add_instance(increments_count)
-
-    # V2
-    application.services.add_scoped(
-        IncrementV2Repository,
-        IncrementRepositoryV2Adapter,
+    application.services.add_instance(
+        counter,
     )
 
     application.services.add_scoped(
-        IncrementV2Service,
-        IncrementV2Adapter,
+        CounterRepo,
+        CounterRepo,
+    )
+
+    application.services.add_scoped(
+        CounterService,
+        CounterService,
     )
 
 
 async def configure_counter(
     application: Application,
-):
+) -> None:
     logging.info("Configuring global counter for V2 service.")
-    srv = application.services.resolve(IncrementService)
+    srv = application.services.resolve(CounterService)
     incr_count = await srv.get_count()
 
-    application.services.register(IncrementsCount, incr_count)
+    application.services.register(Counter, incr_count)
 
 
 async def dispose_sqlalchemy_engine(
     application: Application,
-):
+) -> None:
     logging.info("Disposing connection to SQLAlchemy engine")
     engine = application.services.resolve(AsyncEngine)
 
@@ -123,9 +118,9 @@ async def dispose_sqlalchemy_engine(
 
 async def flush_counter(
     application: Application,
-):
+) -> None:
     logging.debug("Flushing increments counter")
-    repo = application.services.resolve(IncrementV2Repository)
+    repo = application.services.resolve(CounterRepo)
     await repo.flush_counter()
 
 
