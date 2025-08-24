@@ -1,40 +1,44 @@
-# Increment - a high performance counter API
-This project focuses on developing a highly optimized API endpoint for incrementing an integer field stored in a single-row database table. The primary goal is to maximize requests per second (RPS) by exploring various performance optimizations.
+# Increment - High Performance Counter API
+
+This project is focused on building a highly optimized API endpoint for incrementing an integer field stored in a single-row database table. The primary goal is to maximize requests per second (RPS) by exploring various performance optimizations.
 
 ## Tech Stack
 
-- **Language:** Python  
-- **Web Framework:** BlackSheep  
-- **Database:** PostgreSQL  
+* **Language:** Python
+* **Web Framework:** BlackSheep
+* **Database:** PostgreSQL
 
 ## Overview
 
-- The database contains a single row with one `INTEGER` column.  
-- The API provides an endpoint to atomically increment this field.  
-- The main objective is to push the RPS to its limits.  
+* The database contains a single row with one `INTEGER` column.
+* The API provides endpoints to atomically increment this field and retrieve the current count.
+* The objective is to push the RPS to its limits through iterative optimization.
 
-## Endpoints list
 ## API Endpoints
 
-| Method | Endpoint            | Description                                      | Version |
-|--------|---------------------|--------------------------------------------------|---------|
-| POST   | `/api/v1/increment`  | Increment a single integer field (v1 - baseline) | v1      |
-| POST   | `/api/v2/increment`  | Optimized increment endpoint with higher performance | v2  |
-
-More details on implementation and benchmarking will be added as the project evolves.
+| Method | Endpoint          | Description                            | Version |
+| ------ | ----------------- | -------------------------------------- | ------- |
+| POST   | `/api/v1/counter` | Increment the integer field            | v1      |
+| GET    | `/api/v1/counter` | Get current value of the integer field | v1      |
 
 ## Installation
+
+Clone the repository:
+
 ```bash
 git clone https://github.com/awtb/Increment
 ```
 
-### Configuring project
-Create `.env` file
-```
+### Configuration
+
+Create an `.env` file:
+
+```bash
 touch .env
 ```
 
-You can fill it using this template.
+Template:
+
 ```dotenv
 DB_HOST=localhost
 DB_PORT=5432
@@ -44,96 +48,83 @@ DB_USER=ilyas
 SERVING_PORT=8000
 ```
 
+### Running the Project
 
-### Running project
-#### First option, using `docker compose`
+#### Option 1: Docker Compose
 
+**Using prebuilt image:**
 
-**Using prebuilt image.**
-```
+```bash
 docker compose up
 ```
-**Building manually**
-```
+
+**Building manually:**
+
+```bash
 docker compose up --build
 ```
 
-#### Second option, using Kubernetes
+#### Option 2: Kubernetes
 
-Apply manifests
-```
+Apply manifests:
+
+```bash
 kubectl apply -f ./k8s
 ```
 
-#### Third option, by hand
+#### Option 3: Manual Setup
 
-Make sure you have [UV](https://docs.astral.sh/uv/) installed
+Make sure you have [UV](https://docs.astral.sh/uv/) installed.
 
-**Create virtual env**
+**Create virtual environment:**
+
 ```bash
-uv venv 
+uv venv
 ```
-**Install dependencies**
+
+**Install dependencies:**
+
 ```bash
 uv sync --frozen
 ```
 
-**Run project**
+**Run project:**
+
 ```bash
 uv run scripts/prod.sh
 ```
 
-## Benchmarking 
+## Benchmarking
 
-We use [Locust](https://locust.io/) for load testing.  
+We use [Locust](https://locust.io/) for load testing.
 
-You can run it using cmd below
+#### Run benchmark:
 
-#### Benchmarking slow version
 ```bash
-uv run locust -f src/tests/load/increment.py
+uv run locust -f src/tests/load/counter.py
 ```
 
-#### Benchmarking fast version
-```bash
-uv run locust -f src/tests/load/increment_v2.py
-```
+## Performance Results
 
-## My results
-### 📈 Performance Benchmark: `/api/v1/increment` vs `/api/v2/increment`
+### `/api/v1/counter` (increment endpoint)
 
-#### Summary
+| Metric                         | Value     |
+| ------------------------------ | --------- |
+| **Total Requests**             | 281,000   |
+| **Failures**                   | 0 (0.00%) |
+| **Average Response Time (ms)** | \~215     |
+| **Median Response Time (ms)**  | 190       |
+| **Max Response Time (ms)**     | 1250      |
+| **Throughput (req/sec)**       | \~4630    |
 
-| Metric                         | `/api/v1/increment` | `/api/v2/increment` |
-|-------------------------------|---------------------|---------------------|
-| **Total Requests**            | 65,230              | 434,079             |
-| **Failures**                  | 0 (0.00%)           | 0 (0.00%)           |
-| **Average Response Time (ms)**| 349                 | 62                  |
-| **Median Response Time (ms)** | 380                 | 13                  |
-| **Max Response Time (ms)**    | 2363                | 7368                |
-| **Requests/sec (throughput)** | ~2359               | ~5125               |
 
-#### Response Time Percentiles
+### Key Insights
 
-| Percentile | `/api/v1/increment (ms)` | `/api/v2/increment (ms)` |
-|------------|---------------------------|---------------------------|
-| 50%        | 380                       | 13                        |
-| 75%        | 400                       | 85                        |
-| 90%        | 520                       | 190                       |
-| 95%        | 760                       | 230                       |
-| 98%        | 870                       | 250                       |
-| 99%        | 910                       | 270                       |
-| 99.9%      | 1300                      | 2900                      |
-| 99.99%     | 2000                      | 6100                      |
-| 100%       | 2400                      | 7368                      |
+* Stable throughput around **\~4600 RPS** with no request failures.
+* Latency remains consistent across higher percentiles.
+* CPU is the main bottleneck.
+* Due to the design, we cannot truly scale horizontally since it forces the use of a single core.
 
-#### Insights
+## Development Environment
 
-- `/api/v2/increment` is **~5–6x faster** on average.
-- Handles **~7x more requests** during the same duration.
-- Significant latency improvements across all percentiles.
-- No request failures in either version.
-- CPU usage reached high levels — consider [distributed load testing](https://docs.locust.io/en/stable/running-distributed.html) if scaling further.
-
-#### Setting up dev-env for contributing
-You can use predefined `.devcontainer/devcontainer.json` for working with PyCharm or Visual Studio Code.
+A `.devcontainer/devcontainer.json` is provided for VS Code or PyCharm integration to ensure consistent development environments.
