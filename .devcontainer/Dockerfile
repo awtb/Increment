@@ -1,7 +1,4 @@
-FROM python:3.13-slim
-
-
-ENV PYTHONPATH=${PYTHONPATH:-}:/workspace/src
+FROM python:3.12-slim
 
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /usr/local/bin/
 
@@ -12,6 +9,3 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /workspace
-
-COPY pyproject.toml uv.lock* /workspace/
-RUN uv sync --frozen

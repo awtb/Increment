@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
 
 
-class IncrementsCount(BaseModel):
+class Counter(BaseModel):
     count: int = Field(description="Count of increments")

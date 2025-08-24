@@ -1,8 +1,16 @@
 import os
 import sys
 from logging.config import fileConfig
+from pathlib import Path
 
 from sqlalchemy import URL, engine_from_config, pool
+
+
+# Setup correct `$PYTHONPATH`, because our source files located at $PWD/src
+src_path = Path(__file__).resolve().parent.parent  # это src
+if src_path not in sys.path:
+    sys.path.insert(0, str(src_path))
+
 
 from alembic import context
 from increment.api.settings import load_settings
@@ -13,10 +21,6 @@ config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-# Setup correct `$PYTHONPATH`, because our source files located at $PWD/src
-project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "src"))
-if project_root not in sys.path:
-    sys.path.insert(0, project_root)
 
 target_metadata = BaseModel.metadata
 
